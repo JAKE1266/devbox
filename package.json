@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "DevBox 前端开发工具箱 —— 纯前端、零依赖、可挂 GitHub Pages 的单页工具站",
+  "description": "DevBox 前端开发工具箱 —— 纯前端、零依赖、可部署 GitHub Pages 的单页工具站",
   "scripts": {
     "test": "node --test",
     "serve": "python -m http.server 8000"
