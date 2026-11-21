@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DevBox 前端开发工具箱</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="side">
+    <h1>Dev<span>Box</span></h1>
+    <p class="sub">前端开发工具箱<br>纯前端 · 零依赖 · 数据不出浏览器</p>
+    <nav id="nav">
+      <button class="active" data-tab="json">🧾 JSON 工具</button>
+      <button data-tab="ts">⏱ 时间戳</button>
+      <button data-tab="url">🔗 URL 编解码</button>
+      <button data-tab="b64">🔐 Base64</button>
+      <button data-tab="hash">#️⃣ SHA 哈希</button>
+      <button data-tab="color">🎨 颜色转换</button>
+      <button data-tab="uuid">🆔 UUID 生成</button>
+    </nav>
+    <footer>
+      <a href="https://github.com/JAKE1266/devbox" target="_blank" rel="noopener">GitHub 仓库</a>
+      <span>v1.0.0</span>
+    </footer>
+  </aside>
+
+  <main id="main">
+    <!-- JSON -->
+    <section class="tool active" id="tool-json">
+      <h2>JSON 格式化 / 压缩 / 排序</h2>
+      <textarea id="json-in" rows="9" placeholder='粘贴 JSON,如 {"b":2,"a":[1,{"y":1,"x":2}]}'></textarea>
+      <div class="row">
+        <button class="primary" data-json="format">格式化</button>
+        <button data-json="minify">压缩</button>
+        <button data-json="sort">键排序</button>
+        <span class="status" id="json-status"></span>
+      </div>
+      <pre class="out" id="json-out"></pre>
+    </section>
+
+    <!-- 时间戳 -->
+    <section class="tool" id="tool-ts">
+      <h2>时间戳 ⇄ 日期</h2>
+      <div class="card2">
+        <h3>时间戳 → 日期</h3>
+        <div class="row">
+          <input type="text" id="ts-unix" placeholder="秒或毫秒均可,如 1763712000 或 now" style="flex:2">
+          <select id="ts-tz">
+            <option value="UTC">UTC</option>
+            <option value="Asia/Shanghai">Asia/Shanghai (UTC+8)</option>
+            <option value="Asia/Tokyo">Asia/Tokyo (UTC+9)</option>
+            <option value="America/New_York">America/New_York</option>
+            <option value="Europe/London">Europe/London</option>
+            <option value="local">本机时区</option>
+          </select>
+        </div>
+        <div class="row"><button class="primary" id="ts-go">转换</button><span class="status" id="ts-out"></span></div>
+        <div class="row muted" id="ts-rel"></div>
+      </div>
+      <div class="card2">
+        <h3>日期 → 时间戳</h3>
+        <div class="row">
+          <input type="date" id="ts-date">
+          <input type="time" id="ts-time" step="1" value="12:00:00">
+          <select id="ts-tz2"><option value="UTC">UTC</option><option value="Asia/Shanghai">Asia/Shanghai (UTC+8)</option><option value="local">本机时区</option></select>
+        </div>
+        <div class="row"><button class="primary" id="ts-go2">转换</button><span class="status" id="ts-out2"></span></div>
+      </div>
+    </section>
+
+    <!-- URL -->
+    <section class="tool" id="tool-url">
+      <h2>URL 编码 / 解码</h2>
+      <textarea id="url-in" rows="6" placeholder="输入任意文本或已编码的 URL 组件"></textarea>
+      <div class="row"><span class="muted">编码(encodeURIComponent)</span></div>
+      <pre class="out" id="url-enc"></pre>
+      <div class="row"><span class="muted">解码</span><span class="status" id="url-status"></span></div>
+      <pre class="out" id="url-dec"></pre>
+    </section>
+
+    <!-- Base64 -->
+    <section class="tool" id="tool-b64">
+      <h2>Base64 编码 / 解码</h2>
+      <textarea id="b64-in" rows="6" placeholder="支持中文与 emoji 的 UTF-8 安全 Base64"></textarea>
+      <div class="row"><span class="muted">编码结果</span><button class="ghost" id="b64-copy">复制</button></div>
+      <pre class="out" id="b64-enc"></pre>
+      <div class="row"><span class="muted">解码结果</span><span class="status" id="b64-status"></span></div>
+      <pre class="out" id="b64-dec"></pre>
+    </section>
+
+    <!-- SHA -->
+    <section class="tool" id="tool-hash">
+      <h2>SHA 哈希(WebCrypto)</h2>
+      <textarea id="hash-in" rows="6" placeholder="输入要计算哈希的文本"></textarea>
+      <div class="row">
+        <select id="hash-algo">
+          <option value="sha-256">SHA-256</option>
+          <option value="sha-1">SHA-1</option>
+          <option value="sha-384">SHA-384</option>
+          <option value="sha-512">SHA-512</option>
+        </select>
+        <span class="status" id="hash-status"></span>
+      </div>
+      <pre class="out" id="hash-out"></pre>
+    </section>
+
+    <!-- 颜色 -->
+    <section class="tool" id="tool-color">
+      <h2>颜色格式转换</h2>
+      <div class="row">
+        <input type="text" id="color-in" placeholder="#34d399 或 rgb(52, 211, 153)" style="flex:1">
+        <button class="ghost" id="color-random">随机</button>
+      </div>
+      <div class="row">
+        <span class="swatch" id="color-swatch"></span>
+        <span class="status" id="color-status"></span>
+      </div>
+      <pre class="out" id="color-out"></pre>
+    </section>
+
+    <!-- UUID -->
+    <section class="tool" id="tool-uuid">
+      <h2>UUID v4 生成</h2>
+      <div class="row">
+        <label class="muted">数量 <input type="number" id="uuid-count" value="5" min="1" max="100" style="width:70px"></label>
+        <button class="primary" id="uuid-go">生成</button>
+        <button class="ghost" id="uuid-copy">复制全部</button>
+      </div>
+      <pre class="out" id="uuid-out"></pre>
+    </section>
+  </main>
+</div>
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>

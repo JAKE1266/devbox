@@ -1,0 +1,14 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# 测试与工具缓存
+coverage/
+.npm/
+
+# 编辑器与系统
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
